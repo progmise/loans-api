@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -30,7 +31,12 @@ public class User {
 	@Column(name="LAST_NAME")
 	private String lastName;
 	
-	@OneToMany(fetch=FetchType.EAGER, mappedBy="user")
+	@OneToMany(
+			orphanRemoval=true, 
+			cascade=CascadeType.PERSIST,
+			fetch=FetchType.EAGER, 
+			mappedBy="user"
+	)
 	private List<Loan> loans;
 	
 	public User() {
