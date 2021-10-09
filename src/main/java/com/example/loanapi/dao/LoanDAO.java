@@ -5,11 +5,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.example.loanapi.model.Loan;
-import com.example.loanapi.repository.LoanRepository;
+import com.example.loanapi.repository.LoansRepository;
 
 public class LoanDAO {
 	@Autowired
-	LoanRepository loanRepository;
+	LoansRepository loanRepository;
 	
     /**
      * Lists all the loans by a pageable
