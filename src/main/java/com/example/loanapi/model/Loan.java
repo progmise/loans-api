@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.lang.NonNull;
+
 @Entity
 @Table(name="LOAN")
 public class Loan {
@@ -19,9 +21,11 @@ public class Loan {
 	private Long id;
 	
 	@Column(name="TOTAL")
+	@NonNull
 	private Double total;
 	
 	@ManyToOne
+	@NonNull
 	private User user;
 
 	public Loan() {

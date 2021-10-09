@@ -14,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.lang.NonNull;
+
 @Entity
 @Table(name="USERS")
 public class User {
@@ -23,12 +25,15 @@ public class User {
 	private Long id;
 	
 	@Column(name="EMAIL")
+	@NonNull
 	private String email;
 	
 	@Column(name="FIRST_NAME")
+	@NonNull
 	private String firstName;
 	
 	@Column(name="LAST_NAME")
+	@NonNull
 	private String lastName;
 	
 	@OneToMany(
