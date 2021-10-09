@@ -23,7 +23,6 @@ import com.example.loanapi.repository.UsersRepository;
 
 @ActiveProfiles("test")
 @DataJpaTest
-@Rollback(false)
 @AutoConfigureTestDatabase(replace=Replace.NONE)
 @RunWith(SpringRunner.class)
 public class UsersRepositoryTest {
@@ -59,7 +58,7 @@ public class UsersRepositoryTest {
 
         // Then
         assertThat(usersList.size()).isEqualTo(1);
-        assertThat(usersList.get(1)).isEqualTo(user);
+        assertThat(usersList.get(0)).isEqualTo(user);
     }
     
     @Test
@@ -75,7 +74,7 @@ public class UsersRepositoryTest {
 
         // Then
         assertThat(usersList.size()).isEqualTo(1);
-        assertThat(usersList.get(1)).isEqualTo(user);
+        assertThat(usersList.get(0)).isEqualTo(user);
     }    
     
     @Test
@@ -103,6 +102,6 @@ public class UsersRepositoryTest {
         List<User> usersList = usersRepository.findAll();
 
         // Then
-        assertThat(usersList.size()).isEqualTo(1);
+        assertThat(usersList.size()).isEqualTo(0);
     }    
 }
