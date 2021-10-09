@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -16,7 +17,7 @@ import org.springframework.lang.NonNull;
 @Table(name="LOAN")
 public class Loan {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="ID")
 	private Long id;
 	
@@ -26,6 +27,7 @@ public class Loan {
 	
 	@ManyToOne
 	@NonNull
+	@JoinColumn(name="USER_ID")
 	private User user;
 
 	public Loan() {
