@@ -44,17 +44,18 @@ public class UserService implements IUserService {
 	}
 
 	@Override
-	public UserDTO createUser(User user) {
+	public UserDTO createUser(UserDTO userDTO) {
 		
-		User savedUser = userRepository.save(user);
-		UserDTO userDTO = modelMapper.map(savedUser, UserDTO.class);
+		User userRequest = modelMapper.map(userDTO, User.class);
+		User user = userRepository.save(userRequest);
+		UserDTO userResponse = modelMapper.map(user, UserDTO.class);
 		
-		return userDTO;
+		return userResponse;
 	}
 
 	@Override
-	public void deleteUser(User user) {
+	public void deleteUserById(Long id) {
 		
-		userRepository.delete(user);
+		userRepository.deleteById(id);
 	}
 }
