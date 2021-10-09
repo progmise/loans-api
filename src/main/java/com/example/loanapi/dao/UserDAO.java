@@ -6,12 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.loanapi.model.User;
-import com.example.loanapi.repository.UserRepository;
+import com.example.loanapi.repository.UsersRepository;
 
 @Service
 public class UserDAO {
 	@Autowired
-	UserRepository userRepository;
+	UsersRepository userRepository;
 	
     /**
      * Searches a user by id
