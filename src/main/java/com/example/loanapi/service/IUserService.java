@@ -1,7 +1,6 @@
 package com.example.loanapi.service;
 
 import com.example.loanapi.dto.UserDTO;
-import com.example.loanapi.model.User;
 
 public interface IUserService {
 
@@ -19,12 +18,12 @@ public interface IUserService {
      * @param user
      * @return 
      */
-    public UserDTO createUser(User user);
+    public UserDTO createUser(UserDTO userDTO);
     
     
     /**
      * Deletes a user
      * @param user 
      */
-    public void deleteUser(User user); 
+    public void deleteUserById(Long id); 
 }
