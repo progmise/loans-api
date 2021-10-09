@@ -20,7 +20,7 @@ import org.springframework.lang.NonNull;
 @Table(name="USER")
 public class User {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="ID")
 	private Long id;
 	
