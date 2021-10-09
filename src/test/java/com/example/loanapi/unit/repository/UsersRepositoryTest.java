@@ -47,6 +47,15 @@ public class UsersRepositoryTest {
     }
     
     @Test
+    public void save() throws Exception {
+        // When
+        User saved = usersRepository.save(user);
+
+        // Then
+        assertThat(saved.getId()).isEqualTo(user.getId());
+    }    
+    
+    @Test
     public void findAll() throws Exception {
         // Given
         entityManager.persist(user);
