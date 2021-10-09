@@ -34,10 +34,10 @@ public class LoansRepositoryTest {
     @Autowired
     private LoansRepository loansRepository;
     
-    Loan loan;
-    Loan otherLoan;
-    User user;
-    Pageable paging;
+    private Loan loan;
+    private Loan otherLoan;
+    private User user;
+    private Pageable paging;
     
     @Before
     public void setUp() {
