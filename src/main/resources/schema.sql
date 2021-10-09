@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS public."USER" (
-	"ID" integer NOT NULL,
+	"ID" serial NOT NULL,
 	"EMAIL" character varying(80) NOT NULL,
 	"FIRST_NAME" character varying(25) NOT NULL, 
 	"LAST_NAME" character varying(45) NOT NULL, 
@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS public."USER" (
 );
 
 CREATE TABLE IF NOT EXISTS public."LOAN" (
-	"ID" integer NOT NULL, 
+	"ID" serial NOT NULL, 
 	"TOTAL" numeric NOT NULL, 
 	"USER_ID" integer NOT NULL, 
 	CONSTRAINT "LOAN_PK" PRIMARY KEY ("ID"), 
