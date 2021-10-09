@@ -14,6 +14,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -22,6 +23,7 @@ import com.example.loanapi.repository.UsersRepository;
 
 @ActiveProfiles("test")
 @DataJpaTest
+@Rollback(false)
 @AutoConfigureTestDatabase(replace=Replace.NONE)
 @RunWith(SpringRunner.class)
 public class UsersRepositoryTest {
@@ -41,7 +43,6 @@ public class UsersRepositoryTest {
         user = new User();
         usersIds = new ArrayList<>();
         
-        user.setId(new Long(1));
         user.setEmail("user@example.com");
         user.setFirstName("Leonel");
         user.setLastName("Chaves");
@@ -57,7 +58,7 @@ public class UsersRepositoryTest {
         List<User> usersList = usersRepository.findAll();
 
         // Then
-        assertThat(usersList.size()).isEqualTo(2);
+        assertThat(usersList.size()).isEqualTo(1);
         assertThat(usersList.get(1)).isEqualTo(user);
     }
     
@@ -73,7 +74,7 @@ public class UsersRepositoryTest {
         List<User> usersList = usersRepository.findAllById(usersIds);
 
         // Then
-        assertThat(usersList.size()).isEqualTo(2);
+        assertThat(usersList.size()).isEqualTo(1);
         assertThat(usersList.get(1)).isEqualTo(user);
     }    
     
