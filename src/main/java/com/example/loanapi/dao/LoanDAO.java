@@ -30,6 +30,6 @@ public class LoanDAO {
      */
     public Page<Loan> findAllByUser(Long userId, Pageable pageable) {
     	
-        return loanRepository.findAllByUser(userId, pageable);
+        return loanRepository.findAllByUserId(userId, pageable);
     }    
 }
