@@ -3,10 +3,12 @@ package com.example.loanapi.dao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import com.example.loanapi.model.Loan;
 import com.example.loanapi.repository.LoansRepository;
 
+@Service
 public class LoanDAO {
 	@Autowired
 	LoansRepository loanRepository;
@@ -28,7 +30,7 @@ public class LoanDAO {
      * @param userId, pageable
      * @return 
      */
-    public Page<Loan> findAllByUser(Long userId, Pageable pageable) {
+    public Page<Loan> findAllByUserId(Long userId, Pageable pageable) {
     	
         return loanRepository.findAllByUserId(userId, pageable);
     }    
