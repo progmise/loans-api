@@ -5,7 +5,6 @@ import java.io.Serializable;
 import org.springframework.http.HttpStatus;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonPropertyOrder({"success", "message"})
@@ -14,10 +13,7 @@ public class ApiResponse implements Serializable {
 	@JsonIgnore
 	private static final long serialVersionUID = 8517185101599824123L;
 
-	@JsonProperty("success")
 	private Boolean success;
-
-	@JsonProperty("message")
 	private String message;
 
 	@JsonIgnore
