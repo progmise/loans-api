@@ -42,12 +42,21 @@ public class LoanService implements ILoanService {
 		return new PagedResponse<LoanDTO>(content, page);
 	}
 	
-
 	@Override
 	public PagedResponse<LoanDTO> getAllLoansByUserId(Pageable pageable, Long userId) {
-		// TODO Auto-generated method stub
-		return null;
-	}	
+		
+		validatePageNumberAndSize(pageable.getPageNumber(), pageable.getPageSize());
+		
+		Page<Loan> loans = loansRepository.findAllByUserId(userId, pageable);
+		
+		PageDTO page = modelMapper.map(loans, PageDTO.class);
+		
+		List<LoanDTO> content = loans.getContent().stream()
+				.map(loan -> modelMapper.map(loan, LoanDTO.class))
+				.collect(Collectors.toList());
+		
+		return new PagedResponse<LoanDTO>(content, page);
+	}
 	
 	private void validatePageNumberAndSize(Integer page, Integer size) {
 
