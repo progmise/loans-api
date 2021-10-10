@@ -30,5 +30,15 @@ public class LoanController {
     	PagedResponse<LoanDTO> pagedResponse = loanService.getAllLoans(pageable);
     	
     	return new ResponseEntity<PagedResponse<LoanDTO>>(pagedResponse, HttpStatus.OK);
-    }     
+    }
+    
+    @RequestMapping(params="user_id", method=RequestMethod.GET)
+    public ResponseEntity<PagedResponse<LoanDTO>> getAllLoansByUserId(
+    		@PageableDefault(sort="id", direction=Direction.ASC) Pageable pageable, 
+    		@RequestParam(value="user_id", required=false) Long userId) {    	
+    	
+    	PagedResponse<LoanDTO> pagedResponse = loanService.getAllLoansByUserId(pageable, userId);
+    	
+    	return new ResponseEntity<PagedResponse<LoanDTO>>(pagedResponse, HttpStatus.OK);
+    }        
 }
