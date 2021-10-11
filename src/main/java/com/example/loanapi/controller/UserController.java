@@ -24,9 +24,9 @@ public class UserController {
     @RequestMapping(value="{id}", method=RequestMethod.GET)
     public ResponseEntity<UserDTO> getUserById(@PathVariable(value="id") Long id) {
     	
-    	UserDTO userDTO = userService.getUserById(id);
+    	UserDTO userResponse = userService.getUserById(id);
     	
-    	return ResponseEntity.ok().body(userDTO);
+    	return new ResponseEntity<UserDTO>(userResponse, HttpStatus.OK);
     }
     
     @RequestMapping(method=RequestMethod.POST)
@@ -38,7 +38,7 @@ public class UserController {
     }
     
     @RequestMapping(value="{id}", method=RequestMethod.DELETE)
-    public ResponseEntity<ApiResponse> deleteUser(@PathVariable(value="id") Long id) {
+    public ResponseEntity<ApiResponse> deleteUserById(@PathVariable(value="id") Long id) {
     	
 		userService.deleteUserById(id);
 		ApiResponse apiResponse = new ApiResponse(Boolean.TRUE, "User deleted successfully", HttpStatus.OK);
