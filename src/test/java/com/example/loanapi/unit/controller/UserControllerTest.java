@@ -133,4 +133,19 @@ public class UserControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id", Is.is(userDTO.getId().intValue())));
     }    
+
+    @Test
+    public void shouldDeleteOneUserById() throws Exception {
+    	
+    	apiResponse = new ApiResponse(Boolean.TRUE, "User deleted successfully", HttpStatus.OK);
+    	
+    	userDTO = modelMapper.map(user, UserDTO.class);
+    	
+        BDDMockito.given(userController.deleteUserById(userDTO.getId())).willReturn(ResponseEntity.ok().body(apiResponse));
+        
+        mvc.perform(MockMvcRequestBuilders.delete(Paths.VERSION + Paths.USERS + userDTO.getId())
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.message", Is.is(apiResponse.getMessage())));
+    }
 }
