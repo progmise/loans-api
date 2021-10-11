@@ -19,7 +19,7 @@ public class UserService implements IUserService {
 	private ModelMapper modelMapper;	
 	
 	@Autowired
-	UsersRepository userRepository;	
+	private UsersRepository userRepository;	
 	
 	@Override
 	public UserDTO getUserById(Long id) {
