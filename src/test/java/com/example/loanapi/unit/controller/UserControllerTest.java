@@ -81,5 +81,21 @@ public class UserControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id", Is.is(userDTO.getId().intValue())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.loans", IsCollectionWithSize.hasSize(0)));
-    }
+    }     
+    
+    @Test
+    public void shouldGetOneUserWithOneLoan() throws Exception {
+
+    	user.getLoans().add(loan);
+    	
+    	userDTO = modelMapper.map(user, UserDTO.class);
+
+        BDDMockito.given(userController.getUserById(userDTO.getId())).willReturn(ResponseEntity.ok().body(userDTO));
+
+        mvc.perform(MockMvcRequestBuilders.get(Paths.VERSION + Paths.USERS + userDTO.getId())
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id", Is.is(userDTO.getId().intValue())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.loans", IsCollectionWithSize.hasSize(1)));
+    }          
 }
