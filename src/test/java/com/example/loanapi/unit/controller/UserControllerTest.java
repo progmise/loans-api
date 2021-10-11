@@ -98,4 +98,39 @@ public class UserControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id", Is.is(userDTO.getId().intValue())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.loans", IsCollectionWithSize.hasSize(1)));
     }          
+    
+    @Test
+    public void shouldGetOneUserWithTwoLoans() throws Exception {
+
+    	user.getLoans().add(loan);
+    	user.getLoans().add(otherLoan);
+    	
+    	userDTO = modelMapper.map(user, UserDTO.class);
+
+        BDDMockito.given(userController.getUserById(userDTO.getId())).willReturn(ResponseEntity.ok().body(userDTO));
+
+        mvc.perform(MockMvcRequestBuilders.get(Paths.VERSION + Paths.USERS + userDTO.getId())
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id", Is.is(userDTO.getId().intValue())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.loans", IsCollectionWithSize.hasSize(2)));
+    }
+    
+    @Test
+    public void shouldPostOneUserWithNoneLoan() throws Exception {
+    	
+    	mapper = new ObjectMapper();
+    	userDTO = modelMapper.map(user, UserDTO.class);
+    	
+    	String json = mapper.writeValueAsString(userDTO);
+
+        BDDMockito.given(userController.createUser(userDTO)).willReturn(new ResponseEntity<UserDTO>(userDTO, HttpStatus.CREATED));
+        
+        mvc.perform(MockMvcRequestBuilders.post(Paths.VERSION + Paths.USERS)
+        		.content(json)
+                .contentType(MediaType.APPLICATION_JSON)
+        		.accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isCreated())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id", Is.is(userDTO.getId().intValue())));
+    }    
 }
