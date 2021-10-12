@@ -48,7 +48,7 @@ La app define los siguientes CRUD, que por ahora están incompletos.
 | ------ | --- | ----------- | ------------------------- |
 | GET    | /api/1.0/loans | Obtiene la primera página de prestamos | |
 | GET    | /api/1.0/loans?page={page}&size={size} | Obtiene una página determinada con el tamaño indicado de elementos, de prestamos | |
-| GET    | /api/1.0/laons?user_id={userId} | Obtiene los prestamos del usuario indicado | |
+| GET    | /api/1.0/loans?user_id={userId} | Obtiene los prestamos del usuario indicado | |
 | GET    | /api/1.0/loans?page={page}&size={size}&user_id={userId} | Obtiene una página determinada con el tamaño indicado de elementos, de prestamos filtrados por el usuario indicado | |
 
 Testear los mismos a través de Postman, o cualquier otra herramienta de testing de API REST.
