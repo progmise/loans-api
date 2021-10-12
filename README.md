@@ -55,7 +55,7 @@ Testear los mismos a través de Postman, o cualquier otra herramienta de testing
 
 ## Ejemplos de bodys de Request válidos
 
-##### <a id="postcreate">Crear Usuario -> /api/1.0/users/</a>
+##### <a id="postcreate">Crear User -> /api/1.0/users/</a>
 ```json
 {
   "email": "pepeargento@dummymail.com",
