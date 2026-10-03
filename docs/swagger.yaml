@@ -1,0 +1,277 @@
+openapi: 3.0.0
+info:
+  title: Loans API
+  description: |-
+    REST API for managing users and their loans.
+
+    Users (`/users`) can be created, retrieved and deleted. Loans (`/loans`)
+    are read-only collections of the amounts owed by each user, returned
+    paginated.
+
+    All endpoints hang off the `/api/1.0` prefix.
+
+    Errors are returned with the shared `Errores` payload:
+    `{"errors": [{"code", "message", "level", "description"}]}`.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/api/1.0
+tags:
+  - name: Users
+    description: User management
+  - name: Loans
+    description: Loan listings
+paths:
+  /users:
+    post:
+      summary: Create a user
+      tags: [Users]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+      responses:
+        '201':
+          description: User created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /users/{userId}:
+    get:
+      summary: Retrieve a user by id
+      tags: [Users]
+      parameters:
+        - $ref: '#/components/parameters/UserIdPath'
+      responses:
+        '200':
+          description: User found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    delete:
+      summary: Delete a user by id
+      tags: [Users]
+      parameters:
+        - $ref: '#/components/parameters/UserIdPath'
+      responses:
+        '200':
+          description: User deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /loans:
+    get:
+      summary: List loans, optionally filtered by user
+      description: >-
+        Returns a paginated list of loans. When `user_id` is provided, only
+        loans belonging to that user are returned. Pages are 1-indexed and
+        the page size is capped at 50.
+      tags: [Loans]
+      parameters:
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/SizeParam'
+        - name: user_id
+          in: query
+          required: false
+          description: Filter loans by owner user id
+          schema:
+            type: integer
+            format: int64
+          example: 3
+      responses:
+        '200':
+          description: Paginated loans
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedLoans'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 3
+        email:
+          type: string
+          maxLength: 80
+          example: user3@example.com
+        firstName:
+          type: string
+          maxLength: 25
+          example: Lope
+        lastName:
+          type: string
+          maxLength: 45
+          example: Casares
+        loans:
+          type: array
+          items:
+            $ref: '#/components/schemas/Loan'
+    CreateUserRequest:
+      type: object
+      required: [email, firstName, lastName]
+      properties:
+        email:
+          type: string
+          maxLength: 80
+          example: user3@example.com
+        firstName:
+          type: string
+          maxLength: 25
+          example: Lope
+        lastName:
+          type: string
+          maxLength: 45
+          example: Casares
+    Loan:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 5
+        total:
+          type: number
+          format: double
+          example: 1928.57
+        userId:
+          type: integer
+          format: int64
+          example: 3
+    PagedLoans:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Loan'
+        paging:
+          $ref: '#/components/schemas/Paging'
+    Paging:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int64
+          description: Current page (1-indexed)
+          example: 1
+        size:
+          type: integer
+          format: int64
+          example: 50
+        total:
+          type: integer
+          format: int64
+          example: 2
+    ApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: User deleted successfully
+    Errores:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: >-
+            Machine-readable dotted code (e.g. `required.field.email`,
+            `invalid.value.user_id`, `user.not.found`)
+          example: required.field.email
+        message:
+          type: string
+          example: The email is required
+        level:
+          type: string
+          enum: [info, warning, error]
+          example: error
+        description:
+          type: string
+          example: Invalid request
+  parameters:
+    UserIdPath:
+      name: userId
+      in: path
+      required: true
+      description: User id (numeric)
+      schema:
+        type: string
+        pattern: '^\d+$'
+      example: '3'
+    PageParam:
+      name: page
+      in: query
+      required: false
+      description: Page number (1-indexed)
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+      example: 1
+    SizeParam:
+      name: size
+      in: query
+      required: false
+      description: Page size (max 50)
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 50
+        default: 50
+      example: 50
+  responses:
+    BadRequest:
+      description: Invalid request (missing/invalid parameters or body)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errores'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errores'
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errores'

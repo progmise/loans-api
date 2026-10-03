@@ -1,7 +1,0 @@
-11-10-2021 22:16:33.531 [main] com.example.loanapi.LoanApiApplication - Starting LoanApiApplication using Java 11.0.5 on DESKTOP-5V3MU55 with PID 31820 (C:\Users\Leonel\Documents\java-workspace\loan-api\target\classes started by Leonel in C:\Users\Leonel\Documents\java-workspace\loan-api)
-11-10-2021 22:16:33.533 [main] com.example.loanapi.LoanApiApplication - Running with Spring Boot v2.5.5, Spring v5.3.10
-11-10-2021 22:16:33.534 [main] com.example.loanapi.LoanApiApplication - No active profile set, falling back to default profiles: default
-11-10-2021 22:16:51.276 [main] com.example.loanapi.LoanApiApplication - Starting LoanApiApplication using Java 11.0.5 on DESKTOP-5V3MU55 with PID 30928 (C:\Users\Leonel\Documents\java-workspace\loan-api\target\classes started by Leonel in C:\Users\Leonel\Documents\java-workspace\loan-api)
-11-10-2021 22:16:51.279 [main] com.example.loanapi.LoanApiApplication - Running with Spring Boot v2.5.5, Spring v5.3.10
-11-10-2021 22:16:51.279 [main] com.example.loanapi.LoanApiApplication - No active profile set, falling back to default profiles: default
-11-10-2021 22:16:54.102 [main] com.example.loanapi.LoanApiApplication - Started LoanApiApplication in 3.135 seconds (JVM running for 3.405)
