@@ -36,3 +36,8 @@ build/
 .env
 
 app_root/
+
+# Local env / runtime artifacts
+.env
+logs/
+app_root/
