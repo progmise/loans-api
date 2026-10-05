@@ -77,8 +77,8 @@ pipelines (`@v1`, `secrets: inherit`):
 Docker image = `<DOCKER_USERNAME>/<repo>`. Required secrets/vars are listed
 in the template's README (`DOCKER_USERNAME`, `DOCKER_TOKEN`, optional
 `VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`, `GRAFANA_OTLP_*`).
-Vercel builds from `Dockerfile.vercel` and runs the OCI image; the app reads
-`$PORT`.
+Vercel builds the root `Dockerfile` from source (it detects a Dockerfile at
+the project root); the app reads `$PORT`.
 
 ## Docs
 
