@@ -66,12 +66,13 @@ Thin callers in `.github/workflows` → `progmise/reusable-workflows` API
 pipelines (`@v1`, `secrets: inherit`):
 
 - **CI Checks** on PRs — build, tests, SAST/SCA, container scan (CSA).
-- **Integration** on merge — publishes image to Docker Hub (`:<sha>`, `:edge`/`:latest`).
+- **Integration** on merge — publishes image to Docker Hub (`:<sha>`,
+  `:edge`/`:latest`) and deploys to non-pro envs in `DEPLOY_ENVIRONMENTS`.
 - **Release** (manual on `main`) — bump `<version>` in `pom.xml`, run
   *Actions → Release*: publishes `:<version>` + `:latest`, creates the GitHub
-  Release/tag and deploys to Vercel (envs from `vars.DEPLOY_ENVIRONMENTS`,
-  default `["pro"]`).
-- **Deploy** (manual) — redeploy any released version.
+  Release/tag. **Never deploys** — production goes through Deploy.
+- **Deploy** (manual) — deploy any released version to one env
+  (`pro`/`cert`/`pre`, must be in `vars.DEPLOY_ENVIRONMENTS`).
 
 Docker image = `<DOCKER_USERNAME>/<repo>`. Required secrets/vars are listed
 in the template's README (`DOCKER_USERNAME`, `DOCKER_TOKEN`, optional
