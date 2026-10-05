@@ -1,4 +1,21 @@
+# Local dev stack — app + postgres + redis. Builds the image from source:
+# docker compose up --build
 services:
+  app:
+    build: .
+    container_name: loans-api-app
+    ports:
+      - "8080:8080"
+    environment:
+      DB_URL: jdbc:postgresql://postgres:5432/LOAN_API
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    depends_on:
+      - postgres
+      - redis
+
   postgres:
     image: postgres:15-alpine
     container_name: loans-api-postgres

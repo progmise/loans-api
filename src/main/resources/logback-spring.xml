@@ -55,7 +55,7 @@
         </triggeringPolicy>
     </appender>     
     
-    <logger name="com.example.loanapi" level="DEBUG">
+    <logger name="io.github.progmise.loans" level="DEBUG">
         <appender-ref ref="applicationLog" />
         <appender-ref ref="console" />
     </logger>
