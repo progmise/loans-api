@@ -13,7 +13,9 @@ RUN mvn -B -ntp -DskipTests package
 
 FROM eclipse-temurin:21.0.12_8-jre-alpine@sha256:1a29e1fe337eb28b5bec30f0ee8ed29f0ff80ab6f75dcf9313efe82911065a52 AS layers
 COPY --from=build /app/target/*.jar /tmp/
-RUN java -Djarmode=layertools -jar /tmp/*.jar extract --destination /tmp/app
+# Boot 4: layertools left the fat jar; the repackaged jar embeds
+# spring-boot-jarmode-tools in BOOT-INF/lib — `jarmode=tools` replaces it
+RUN java -Djarmode=tools -jar /tmp/*.jar extract --layers --launcher --destination /tmp/app
 
 FROM eclipse-temurin:21.0.12_8-jre-alpine@sha256:1a29e1fe337eb28b5bec30f0ee8ed29f0ff80ab6f75dcf9313efe82911065a52
 # Bump packages with known fixes beyond the pinned base (CSA findings)
