@@ -1,6 +1,6 @@
 # loans-api
 
-REST API for managing users and loans. Java 21, Spring Boot 3, Spring Data
+REST API for managing users and loans. Java 21, Spring Boot 4, Spring Data
 JPA (PostgreSQL), Redis cache. Hexagonal architecture (ports & adapters) —
 built from `java-maven-api-template` conventions and sharing
 [api-commons](https://github.com/progmise/api-commons) infrastructure
@@ -62,7 +62,7 @@ JPA — no Docker needed.
 
 ## CI/CD
 
-Thin callers in `.github/workflows` → `progmise/reusable-workflows` API
+Thin callers in `.github/workflows` → `progmise/reusable-workflows` app
 pipelines (`@v1`, `secrets: inherit`):
 
 - **CI Checks** on PRs — build, tests, SAST/SCA, container scan (CSA).
@@ -77,8 +77,9 @@ pipelines (`@v1`, `secrets: inherit`):
 Docker image = `<DOCKER_USERNAME>/<repo>`. Required secrets/vars are listed
 in the template's README (`DOCKER_USERNAME`, `DOCKER_TOKEN`, optional
 `VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`, `GRAFANA_OTLP_*`).
-Vercel builds the root `Dockerfile` from source (it detects a Dockerfile at
-the project root); the app reads `$PORT`.
+Vercel builds the root `Dockerfile` from source — the project's Framework
+Preset must be `Container` (auto-detection of a plain `Dockerfile` requires a
+`Dockerfile.vercel` marker file); the app reads `$PORT`.
 
 ## Docs
 
