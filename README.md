@@ -78,8 +78,7 @@ Docker image = `<DOCKER_USERNAME>/<repo>`. Required secrets/vars are listed
 in the template's README (`DOCKER_USERNAME`, `DOCKER_TOKEN`, optional
 `VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`, `GRAFANA_OTLP_*`).
 Vercel builds the root `Dockerfile` from source — the project's Framework
-Preset must be `Container` (auto-detection of a plain `Dockerfile` requires a
-`Dockerfile.vercel` marker file); the app reads `$PORT`.
+Preset must be `Container`; the app reads `$PORT`.
 
 ## Docs
 
