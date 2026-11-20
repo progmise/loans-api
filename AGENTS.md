@@ -74,4 +74,4 @@ the integration branch. Work lands on `<type>/<snake_description>` → PR to
 Bump `<version>` in `pom.xml`, merge `development` → `main`, then run the
 **Release** workflow manually on `main` — it validates, runs CI, publishes
 the Docker image and creates the tag + GitHub Release. Deploys go through
-`deploy-manifest` (`deploy.yml` dispatch).
+`loans-app-model` (`deploy.yml` orchestrated dispatch).
