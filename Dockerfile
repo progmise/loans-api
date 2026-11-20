@@ -19,7 +19,7 @@ RUN java -Djarmode=tools -jar /tmp/*.jar extract --layers --launcher --destinati
 
 FROM eclipse-temurin:21.0.12_8-jre-alpine@sha256:1a29e1fe337eb28b5bec30f0ee8ed29f0ff80ab6f75dcf9313efe82911065a52
 # Bump packages with known fixes beyond the pinned base (CSA findings)
-RUN apk upgrade --no-cache libexpat
+RUN apk upgrade --no-cache libexpat musl musl-utils zlib brotli-libs
 ARG EXTRACTED=/tmp/app
 WORKDIR /opt/app
 
